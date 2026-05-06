@@ -1,18 +1,13 @@
-module counter(bombTime, timeLeft, clk);
+module counter(clk, time_left, max_time);
 	input clk;
-	output reg[6:0] bombTime; // this is a reg because we will assign it the value of 't' and connect it to 'beeper'
-	output[6:0] timeLeft;
+	output reg [6:0] time_left;
+	output reg [6:0] max_time;
 	
-	parameter T = 45; // time
-	integer s = T; // 32-bit by default
+	parameter [6:0] BOMB_TIME = 45;
+	initial time_left = BOMB_TIME;
+	initial max_time = BOMB_TIME; // to be passed to beeper module
 	
-	// SEQUENTIAL
-	always @(posedge clk) begin
-		s = s - 1;
-	end
-	
-	// OUTPUT
-	initial bombTime = T;
-	assign timeLeft = s;
+	always @(posedge clk) 
+		time_left = time_left - 1'd1;
 	
 endmodule
