@@ -8,7 +8,7 @@ module clk_div(clk_in, clk_out);
 	reg [24:0] ticks = 0;
 
 	always @(posedge clk_in) begin
-		if(ticks != (half_cycle-1) ) ticks = ticks + 1'b1;
+		if(ticks < (half_cycle-1) ) ticks = ticks + 1'b1;
 		else begin
 			clk_out = !clk_out; // invert
 			ticks = 0;          // reset ticks to zero
